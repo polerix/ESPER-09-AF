@@ -1,0 +1,1513 @@
+/* ==========================================================================
+   ESPER // ORBITCAM LDAF-09 – ATARI-SONY-JVC Industrial Design System
+   Blade Runner ESPER Photo Analysis Terminal & 80s Broadcast Console Theme
+   ========================================================================== */
+
+:root {
+  /* Heavy Cast-Metal Industrial Chassis */
+  --chassis-dark: #121417;
+  --chassis-base: #171a1f;
+  --chassis-surface: #1e2229;
+  --chassis-panel: #242932;
+  --chassis-bevel-light: rgba(255, 255, 255, 0.12);
+  --chassis-bevel-dark: rgba(0, 0, 0, 0.85);
+
+  /* Iconic 70s/80s Industrial Colors */
+  --atari-orange: #ea580c;
+  --atari-amber: #f59e0b;
+  --atari-amber-glow: rgba(245, 158, 11, 0.4);
+  --sony-blue: #2563eb;
+  --jvc-teal: #0d9488;
+  --jvc-teal-glow: rgba(13, 148, 136, 0.4);
+  --phosphor-green: #22c55e;
+  --phosphor-green-glow: rgba(34, 197, 94, 0.35);
+  --alert-red: #dc2626;
+  --alert-red-glow: rgba(220, 38, 38, 0.6);
+  --meter-ivory: #f5ecd5;
+  --meter-lamp-glow: rgba(255, 205, 110, 0.35);
+
+  /* Typography Colors */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-amber: #fbbf24;
+  --text-green: #4ade80;
+
+  /* Fonts */
+  --font-display: 'Chakra Petch', -apple-system, sans-serif;
+  --font-mono: 'Share Tech Mono', 'JetBrains Mono', monospace;
+  --font-code: 'JetBrains Mono', monospace;
+
+  /* Radius Tokens */
+  --radius-chassis: 8px;
+  --radius-subpanel: 5px;
+  --radius-btn: 4px;
+  --radius-full: 9999px;
+
+  /* Industrial Shadows & Lighting */
+  --shadow-chassis: 
+    0 20px 50px rgba(0, 0, 0, 0.85),
+    inset 1px 1px 0 var(--chassis-bevel-light),
+    inset -1px -1px 0 var(--chassis-bevel-dark);
+  --shadow-bezel: 
+    inset 2px 2px 4px rgba(0, 0, 0, 0.7),
+    inset -1px -1px 2px rgba(255, 255, 255, 0.08);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body.esper-theme {
+  background-color: #0b0d10;
+  background-image: 
+    radial-gradient(circle at 50% 0%, #1c2129 0%, transparent 60%),
+    linear-gradient(180deg, #0e1013 0%, #08090b 100%);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── App Shell Casing ─────────────────────────────────────────────── */
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 1720px;
+  margin: 0 auto;
+  padding: 14px 20px 16px;
+  gap: 14px;
+}
+
+/* Corner Screws / Hardware Fasteners */
+.chassis-screws {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #94a3b8, #334155 70%, #0f172a 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.4);
+  pointer-events: none;
+}
+
+.chassis-screws::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 1px;
+  right: 1px;
+  height: 1px;
+  background: #0f172a;
+  transform: rotate(45deg);
+}
+
+.top-left-screw { top: 7px; left: 8px; }
+.top-right-screw { top: 7px; right: 8px; }
+.top-right-screw-deck { top: 8px; right: 8px; }
+
+/* ── Top Instrument Panel / Header ────────────────────────────────── */
+
+.hud-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: linear-gradient(180deg, #222730 0%, #181c22 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-bottom: 2px solid #000000;
+  border-radius: var(--radius-chassis);
+  box-shadow: var(--shadow-chassis);
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.chassis-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #111418;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-btn);
+  padding: 5px 10px;
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+.badge-accent-stripe {
+  width: 5px;
+  height: 32px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--atari-orange) 0%, var(--atari-amber) 50%, var(--jvc-teal) 100%);
+}
+
+.badge-text-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.mfg-name {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: var(--atari-amber);
+  letter-spacing: 0.12em;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.model-sub {
+  color: var(--jvc-teal);
+  font-weight: 400;
+  font-size: 0.95rem;
+}
+
+.badge-serial {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  padding-left: 12px;
+}
+
+.serial-tag {
+  color: var(--text-secondary);
+}
+
+.spec-tag {
+  color: var(--phosphor-green);
+}
+
+/* Center Telemetry & Nixie Readout */
+
+.hud-center-status {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.status-cluster {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #0e1115;
+  padding: 4px 10px;
+  border-radius: var(--radius-btn);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+.instrument-led {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.led-lens {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  box-shadow: 0 0 2px rgba(0,0,0,0.9);
+}
+
+.led-lens.green {
+  background: var(--phosphor-green);
+  box-shadow: 0 0 6px var(--phosphor-green-glow);
+}
+
+.led-lens.amber {
+  background: var(--atari-amber);
+  box-shadow: 0 0 6px var(--atari-amber-glow);
+}
+
+.led-text {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.status-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--phosphor-green);
+  box-shadow: 0 0 6px var(--phosphor-green);
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+
+.status-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--phosphor-green);
+}
+
+/* Vintage Amber Readout */
+.nixie-readout {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #080a0d;
+  padding: 4px 12px;
+  border-radius: var(--radius-btn);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  box-shadow: inset 0 0 8px rgba(245, 158, 11, 0.15);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.axis-tag {
+  color: var(--text-muted);
+  font-size: 0.65rem;
+}
+
+.nixie-val {
+  color: var(--atari-amber);
+  font-weight: 700;
+  text-shadow: 0 0 8px var(--atari-amber-glow);
+  min-width: 38px;
+}
+
+.nixie-divider {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* Header Actions & Controls */
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chassis-rotary-pod {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #111418;
+  padding: 3px 8px;
+  border-radius: var(--radius-btn);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rotary-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.industrial-select {
+  background: #1a1e24;
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  padding: 3px 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.membrane-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border: none;
+  user-select: none;
+  transition: all 0.1s ease;
+}
+
+.atari-amber-btn {
+  background: linear-gradient(180deg, #ea580c 0%, #c2410c 100%);
+  color: #ffffff;
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.4),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.atari-amber-btn:hover {
+  background: linear-gradient(180deg, #f97316 0%, #ea580c 100%);
+  box-shadow: 0 0 12px var(--atari-amber-glow);
+}
+
+.atari-amber-btn:active {
+  transform: translateY(1px);
+  box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.chrome-gear-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border-radius: var(--radius-btn);
+  background: linear-gradient(180deg, #475569 0%, #1e293b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.25),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.chrome-gear-btn:hover {
+  background: linear-gradient(180deg, #64748b 0%, #334155 100%);
+}
+
+.chrome-gear-btn:active {
+  transform: translateY(1px);
+}
+
+/* ── Main Workspace Console Grid ─────────────────────────────────── */
+
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 1fr 390px;
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Left Screen: ESPER Cathode Ray Monitor ───────────────────────── */
+
+.monitor-chassis {
+  display: flex;
+  flex-direction: column;
+  background: #14171c;
+  border: 2px solid #000000;
+  border-radius: var(--radius-chassis);
+  box-shadow: var(--shadow-chassis);
+  overflow: hidden;
+  position: relative;
+}
+
+.monitor-top-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: linear-gradient(180deg, #1f242c 0%, #15181e 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.crt-indicator {
+  color: var(--phosphor-green);
+  text-shadow: 0 0 6px var(--phosphor-green);
+  margin-right: 6px;
+}
+
+.viewport-title {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #e2e8f0;
+}
+
+.viewport-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: #0f1216;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--jvc-teal);
+  margin-left: 8px;
+}
+
+.viewport-quick-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hud-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  background: #202630;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.hud-btn:hover {
+  background: #334155;
+}
+
+.crt-toggle-btn.active {
+  background: var(--jvc-teal);
+  color: #000000;
+  font-weight: 700;
+  box-shadow: 0 0 8px var(--jvc-teal-glow);
+}
+
+/* Video Tube Stage */
+
+.monitor-tube {
+  position: relative;
+  flex: 1;
+  background: #050608;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#webcam-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+#overlay-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* CRT Scanline Raster Filter */
+.crt-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.04));
+  background-size: 100% 3px, 6px 100%;
+  z-index: 5;
+}
+
+.crt-overlay.active {
+  opacity: 1;
+}
+
+/* ── ESPER Instrument Dock (Bottom of Monitor) ────────────────────── */
+
+.esper-instrument-dock {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Analogue D'Arsonval Galvanometer Meter Pod */
+.analogue-meter-pod {
+  pointer-events: auto;
+  background: linear-gradient(180deg, #252b34 0%, #15181e 100%);
+  border: 2px solid #000000;
+  border-radius: var(--radius-btn);
+  padding: 6px 8px;
+  box-shadow: 
+    0 8px 20px rgba(0,0,0,0.8),
+    inset 1px 1px 0 rgba(255,255,255,0.15);
+}
+
+.meter-bezel {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.meter-faceplate {
+  position: relative;
+  width: 156px;
+  height: 78px;
+  background: #ebdcc0;
+  border: 2px solid #2b313a;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 0 10px rgba(0,0,0,0.4),
+    inset 0 3px 6px rgba(0,0,0,0.3);
+}
+
+#analogue-meter-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 156px;
+  height: 78px;
+  z-index: 2;
+}
+
+.meter-bulb-glow {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 50px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 230, 150, 0.45) 0%, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.meter-hardware-sub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+/* Chrome Toggle Lever Switch */
+.chrome-toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #111418;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  padding: 3px 6px;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  box-shadow: inset 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+.switch-slot {
+  width: 12px;
+  height: 16px;
+  background: #000000;
+  border-radius: 2px;
+  position: relative;
+  box-shadow: inset 0 0 4px #000;
+}
+
+.switch-handle {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 10px;
+  height: 7px;
+  background: linear-gradient(180deg, #f1f5f9 0%, #94a3b8 50%, #475569 100%);
+  border-radius: 1px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  transition: all 0.12s ease;
+}
+
+.chrome-toggle-switch.muted .switch-handle {
+  top: 8px;
+  background: linear-gradient(180deg, #ef4444 0%, #991b1b 100%);
+}
+
+.switch-caption {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-secondary);
+}
+
+/* Overload Ruby Peak LED */
+.vu-peak-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.led-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.led-ruby {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #450a0a;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
+  transition: all 0.08s ease;
+}
+
+.led-ruby.flash {
+  background: #ef4444;
+  box-shadow: 0 0 10px var(--alert-red-glow), 0 0 3px #ffffff;
+}
+
+/* Scope Formant Canvas */
+.scope-bezel {
+  background: #06090d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.9);
+}
+
+#spectrum-canvas {
+  display: block;
+  width: 88px;
+  height: 26px;
+}
+
+/* ESPER Tracking Pill */
+.esper-pill {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(14, 18, 23, 0.92);
+  border: 1px solid rgba(13, 148, 136, 0.35);
+  border-radius: var(--radius-btn);
+  padding: 6px 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.8);
+}
+
+.esper-pill.active {
+  border-color: var(--jvc-teal);
+  box-shadow: 0 0 12px var(--jvc-teal-glow);
+}
+
+.esper-pill.locked {
+  border-color: var(--phosphor-green);
+  box-shadow: 0 0 14px var(--phosphor-green-glow);
+}
+
+.tracking-text {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--jvc-teal);
+}
+
+.esper-pill.locked .tracking-text {
+  color: var(--phosphor-green);
+}
+
+/* ── Right Column: SONY / ATARI Industrial Control Deck ──────────── */
+
+.industrial-chassis {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #20242d 0%, #15181e 100%);
+  border: 2px solid #000000;
+  border-radius: var(--radius-chassis);
+  box-shadow: var(--shadow-chassis);
+  padding: 14px 16px;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.industrial-subpanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 8px;
+}
+
+.subpanel-title-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.deck-mfg-code {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--atari-amber);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.deck-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+}
+
+.membrane-tabs {
+  display: flex;
+  gap: 4px;
+  background: #0f1216;
+  padding: 2px;
+  border-radius: var(--radius-btn);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mode-tab {
+  padding: 4px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 2px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.mode-tab.active {
+  background: #2b3340;
+  color: #ffffff;
+  box-shadow: 
+    inset 1px 1px 0 rgba(255,255,255,0.2),
+    inset -1px -1px 0 rgba(0,0,0,0.5);
+}
+
+/* ── Membrane Keypad Cluster (D-Pad View) ────────────────────────── */
+
+.membrane-housing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.membrane-cluster {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  background: #111418;
+  border: 2px solid #282f3a;
+  border-radius: 50%;
+  box-shadow: 
+    0 10px 24px rgba(0,0,0,0.7),
+    inset 0 0 12px rgba(0,0,0,0.8);
+}
+
+.membrane-key {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(180deg, #303743 0%, #1e232b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.25),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.6),
+    0 3px 6px rgba(0, 0, 0, 0.6);
+  transition: all 0.08s ease;
+  user-select: none;
+}
+
+.membrane-key svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+}
+
+.membrane-key:hover {
+  background: linear-gradient(180deg, #3d4655 0%, #262c36 100%);
+}
+
+.membrane-key:active, .membrane-key.active {
+  transform: translateY(1px);
+  background: #14171d;
+  box-shadow: inset 1px 2px 5px rgba(0, 0, 0, 0.9);
+}
+
+.key-led {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+  background: #1e293b;
+}
+
+.membrane-key:active .key-led, .membrane-key.active .key-led {
+  background: var(--phosphor-green);
+  box-shadow: 0 0 6px var(--phosphor-green);
+}
+
+/* Keypad Positions around circular cluster */
+.dpad-up         { top: 6px; left: 79px; }
+.dpad-up-right   { top: 22px; right: 22px; width: 44px; height: 44px; }
+.dpad-right      { top: 79px; right: 6px; }
+.dpad-down-right { bottom: 22px; right: 22px; width: 44px; height: 44px; }
+.dpad-down       { bottom: 6px; left: 79px; }
+.dpad-down-left  { bottom: 22px; left: 22px; width: 44px; height: 44px; }
+.dpad-left       { top: 79px; left: 6px; }
+.dpad-up-left    { top: 22px; left: 22px; width: 44px; height: 44px; }
+
+/* Atari Amber Center HOME Key */
+.atari-center {
+  top: 79px;
+  left: 79px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ea580c 0%, #9a3412 100%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.4),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.6),
+    0 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.center-label {
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.atari-center:hover {
+  background: linear-gradient(180deg, #f97316 0%, #ea580c 100%);
+}
+
+.atari-center:active {
+  transform: translateY(1px);
+  box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* ── Heavy Rubber-Boot Analogue Gimbal Joystick ──────────────────── */
+
+.joystick-housing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.gimbal-bezel {
+  padding: 10px;
+  background: #111418;
+  border: 3px solid #2d3440;
+  border-radius: 50%;
+  box-shadow: 
+    0 12px 30px rgba(0,0,0,0.8),
+    inset 0 0 15px rgba(0,0,0,0.9);
+}
+
+.rubber-boot {
+  position: relative;
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #15181e 0%, #0d0f12 70%, #07080a 100%);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  overflow: hidden;
+}
+
+.rubber-boot:active {
+  cursor: grabbing;
+}
+
+/* Concentric Rubber Bellows Rings */
+.boot-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid #222731;
+  pointer-events: none;
+  box-shadow: inset 0 2px 3px rgba(255,255,255,0.06), 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.boot-ring-1 { top: 22px; left: 22px; right: 22px; bottom: 22px; }
+.boot-ring-2 { top: 44px; left: 44px; right: 44px; bottom: 44px; }
+.boot-ring-3 { top: 64px; left: 64px; right: 64px; bottom: 64px; }
+
+.joystick-crosshair-h {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.joystick-crosshair-v {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  bottom: 10%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+/* Chrome Shaft & Cherry Red Arcade Ball-Top */
+.joystick-thumb.arcade-bat {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 58px;
+  height: 58px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.chrome-shaft {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f8fafc 0%, #94a3b8 50%, #334155 100%);
+  box-shadow: 0 0 6px rgba(0,0,0,0.8);
+}
+
+.ball-top.red-arcade {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff5252 0%, #dc2626 55%, #7f1d1d 90%, #450a0a 100%);
+  box-shadow: 
+    0 10px 20px rgba(0, 0, 0, 0.8),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.ball-specular {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  width: 16px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  transform: rotate(-30deg);
+}
+
+.joystick-hint {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+/* ── Speed Fader Control ─────────────────────────────────────────── */
+
+.industrial-pot {
+  background: #13161c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-subpanel);
+  padding: 8px 12px;
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+.speed-control-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.speed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sub-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+}
+
+.speed-readout {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--atari-amber);
+}
+
+.fader-track-container {
+  padding: 2px 0;
+}
+
+.hud-slider.industrial-fader {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #090b0e;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  outline: none;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.9);
+}
+
+.hud-slider.industrial-fader::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 18px;
+  background: linear-gradient(180deg, #94a3b8 0%, #475569 50%, #1e293b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  cursor: ew-resize;
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.speed-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--text-muted);
+}
+
+/* ── ESPER Vision / Tracking Module ──────────────────────────────── */
+
+.deck-section-box {
+  background: #13161c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-subpanel);
+  padding: 10px 12px;
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title-with-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.module-spec {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: var(--jvc-teal);
+  background: rgba(13, 148, 136, 0.15);
+  border: 1px solid rgba(13, 148, 136, 0.3);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+.beta-badge {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--atari-amber);
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+.toggle-card.membrane-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1b2028;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-btn);
+  padding: 6px 10px;
+}
+
+.toggle-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-name {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.toggle-desc {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+
+/* Chrome Toggle Switch */
+.switch-toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.switch-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #0a0c0f;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+  transition: all 0.15s ease;
+}
+
+.switch-slider::before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background: linear-gradient(180deg, #cbd5e1 0%, #64748b 100%);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.7);
+  transition: all 0.15s ease;
+}
+
+input:checked + .switch-slider {
+  background: var(--jvc-teal);
+  box-shadow: 0 0 10px var(--jvc-teal-glow);
+}
+
+input:checked + .switch-slider::before {
+  transform: translateX(22px);
+  background: #ffffff;
+}
+
+.facetrack-params {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+.param-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.param-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+.param-val {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--atari-amber);
+  font-weight: 700;
+}
+
+/* ── Location Registers / Position Presets ───────────────────────── */
+
+.membrane-preset-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.membrane-preset {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 6px;
+  border-radius: 4px;
+  background: #1b2028;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.2),
+    inset -1px -1px 0 rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+  transition: all 0.08s ease;
+  user-select: none;
+}
+
+.preset-indicator {
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+}
+
+.membrane-preset.slate .preset-indicator { background: var(--sony-blue); }
+.membrane-preset.amber .preset-indicator { background: var(--atari-amber); }
+.membrane-preset.teal .preset-indicator  { background: var(--jvc-teal); }
+.membrane-preset.gold .preset-indicator  { background: #eab308; }
+
+.preset-tag {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+}
+
+.preset-sub {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--text-muted);
+}
+
+.membrane-preset:hover {
+  background: #272f3c;
+}
+
+.membrane-preset:active {
+  transform: translateY(1px);
+  box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Hotkey Diagnostics Footer */
+
+.industrial-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+
+.key-pill {
+  background: #101317;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1px 5px;
+  border-radius: 2px;
+  color: var(--text-secondary);
+}
+
+/* ── Slide-Out Hardware Settings Rack ────────────────────────────── */
+
+.settings-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 99;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.settings-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.industrial-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100vh;
+  background: linear-gradient(180deg, #1c212a 0%, #13171e 100%);
+  border-left: 2px solid #000000;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.85);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 16px;
+  transition: right 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.industrial-drawer.open {
+  right: 0;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+}
+
+.drawer-code {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--atari-amber);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.drawer-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.drawer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.setting-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #111419;
+  padding: 10px 12px;
+  border-radius: var(--radius-btn);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.setting-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.setting-name {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.setting-value {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--atari-amber);
+}
+
+.drawer-footer {
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.danger-membrane {
+  width: 100%;
+  background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px;
+}
+
+.danger-membrane:hover {
+  background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+}
+
+/* Animations */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1100px) {
+  .workspace-grid {
+    grid-template-columns: 1fr;
+  }
+  .app-shell {
+    height: auto;
+    min-height: 100vh;
+  }
+}

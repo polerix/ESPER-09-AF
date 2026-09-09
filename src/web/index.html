@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ESPER / Orbitcam LDAF – ATARI-SONY-JVC Industrial Video & Motion Terminal">
+  <title>ESPER // ORBITCAM LDAF-09 – Optical Tracking Terminal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="esper-theme">
+  <!-- Master Machine Casing -->
+  <div class="app-shell" id="app-root">
+    
+    <!-- Top Instrument Panel / Header -->
+    <header class="hud-header" id="hud-header">
+      <div class="chassis-screws top-left-screw"></div>
+      <div class="chassis-screws top-right-screw"></div>
+
+      <div class="brand-group">
+        <div class="chassis-badge">
+          <div class="badge-accent-stripe"></div>
+          <div class="badge-text-block">
+            <span class="mfg-name">SONY-JVC / ATARI INDUSTRIAL SPEC</span>
+            <h1 class="brand-title">ESPER<span class="model-sub">.09-AF</span></h1>
+          </div>
+        </div>
+        <div class="badge-serial">
+          <span class="serial-tag">SER. NO. QC-82452</span>
+          <span class="spec-tag">PTZ OPTICAL TERMINAL</span>
+        </div>
+      </div>
+
+      <!-- Center Telemetry Display -->
+      <div class="hud-center-status">
+        <div class="status-cluster">
+          <div class="instrument-led active" id="power-led" title="System Power">
+            <span class="led-lens green"></span>
+            <span class="led-text">PWR</span>
+          </div>
+          <div class="status-chip connected" id="device-status-chip">
+            <span class="status-dot"></span>
+            <span class="status-label" id="status-label">ONLINE // STANDBY</span>
+          </div>
+          <div class="instrument-led active" id="usb-led" title="UVC 2.0 Bus Ready">
+            <span class="led-lens amber"></span>
+            <span class="led-text">UVC</span>
+          </div>
+        </div>
+
+        <div class="nixie-readout" id="position-display" title="Relative PTZ Angle Telemetry">
+          <span class="axis-tag">AZM</span>
+          <span class="nixie-val" id="pan-display">000°</span>
+          <span class="nixie-divider">/</span>
+          <span class="axis-tag">ELEV</span>
+          <span class="nixie-val" id="tilt-display">000°</span>
+        </div>
+      </div>
+
+      <!-- Top Right Controls -->
+      <div class="header-actions">
+        <!-- LED Rotary / Toggle Control -->
+        <div class="chassis-rotary-pod" title="Camera Ring Illuminator">
+          <span class="rotary-label">ILLUM:</span>
+          <select id="led-mode-select" class="hud-select industrial-select">
+            <option value="auto">AUTO</option>
+            <option value="on">LAMP ON</option>
+            <option value="blink">STROBE</option>
+            <option value="off">OFF</option>
+          </select>
+        </div>
+
+        <!-- Calibrate / Zero Return Button -->
+        <button id="btn-recalibrate" class="membrane-btn atari-amber-btn" title="Re-zero & Recalibrate Gimbals (H)">
+          <div class="btn-bevel"></div>
+          <span class="btn-text">ZERO RECAL</span>
+        </button>
+
+        <!-- Hardware Settings Toggle -->
+        <button id="btn-toggle-settings" class="chrome-gear-btn" title="Camera Video Processing Adjustments">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <span class="btn-text">UVC SET</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Console Grid -->
+    <main class="workspace-grid" id="main-content">
+      
+      <!-- Left Screen: ESPER Cathode Ray Monitor -->
+      <section class="viewport-card monitor-chassis" id="viewport-container">
+        <!-- Monitor Bezel Header -->
+        <div class="viewport-header monitor-top-strip">
+          <div class="viewport-title-group">
+            <span class="crt-indicator">●</span>
+            <span class="viewport-title" id="active-cam-name">ESPER OPTICAL SENSOR FEED</span>
+            <span class="viewport-badge" id="video-res-badge">640x480</span>
+          </div>
+
+          <div class="viewport-quick-tools">
+            <select id="camera-select" class="hud-select compact" title="Select Video Device">
+              <option value="">SCANNING OPTICAL...</option>
+            </select>
+            <select id="audio-select" class="hud-select compact" title="Select Audio Input">
+              <option value="">DETECTING AUDIO...</option>
+            </select>
+            <select id="resolution-select" class="hud-select compact" title="Video Resolution">
+              <option value="default">AUTO-RESOLVE</option>
+              <option value="1600x1200">1600 x 1200 (HIGH)</option>
+              <option value="1280x720">1280 x 720 (WIDE)</option>
+              <option value="960x720">960 x 720 (STUDIO)</option>
+              <option value="640x480">640 x 480 (STD)</option>
+            </select>
+            <button id="btn-toggle-crt" class="hud-btn compact crt-toggle-btn" title="Toggle ESPER CRT Phosphor Scanlines">
+              CRT
+            </button>
+            <button id="btn-fullscreen" class="hud-btn icon-btn compact" title="Toggle Fullscreen (F)">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Video Tube Stage -->
+        <div class="video-stage monitor-tube" id="video-stage">
+          <video id="webcam-video" autoplay playsinline muted></video>
+          <canvas id="overlay-canvas"></canvas>
+
+          <!-- CRT Scanline Raster Filter -->
+          <div class="crt-overlay active" id="crt-overlay"></div>
+
+          <!-- Hidden legacy box for compatibility -->
+          <div class="tracking-hud" id="tracking-hud" style="display: none;">
+            <div class="reticle-box" id="reticle-box">
+              <span class="reticle-label">TARGET LOCKED</span>
+            </div>
+          </div>
+
+          <!-- ESPER Bottom Instrument Ribbon -->
+          <div class="stage-overlay-bottom esper-instrument-dock">
+            
+            <!-- Analogue D'Arsonval Galvanometer VU Meter Module -->
+            <div class="analogue-meter-pod" id="audio-monitor-bar" title="D'Arsonval Galvanometer Audio VU Meter">
+              <div class="meter-bezel">
+                <div class="meter-faceplate">
+                  <canvas id="analogue-meter-canvas" width="156" height="78"></canvas>
+                  <div class="meter-bulb-glow"></div>
+                </div>
+                <div class="meter-hardware-sub">
+                  <button id="btn-toggle-mic" class="chrome-toggle-switch" title="Toggle Microphone Audio Monitor (M)">
+                    <div class="switch-slot">
+                      <div class="switch-handle" id="mic-switch-handle"></div>
+                    </div>
+                    <span class="switch-caption">MIC</span>
+                    <svg id="mic-icon-on" style="display:none;"></svg>
+                    <svg id="mic-icon-off" style="display:none;"></svg>
+                  </button>
+
+                  <div class="vu-peak-indicator" id="vu-peak-led" title="Overload Peak (> 0 dB)">
+                    <span class="led-label">PEAK</span>
+                    <span class="led-ruby"></span>
+                  </div>
+
+                  <!-- CRT Oscilloscope Formant Spectrum -->
+                  <div class="scope-bezel">
+                    <canvas id="spectrum-canvas" width="88" height="26"></canvas>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Hidden compatibility elements -->
+              <div class="vu-meter-track" style="display:none;">
+                <div class="vu-meter-fill" id="vu-meter-fill"></div>
+                <div class="vu-meter-peak" id="vu-meter-peak"></div>
+              </div>
+            </div>
+
+            <!-- ESPER Tracking Telemetry Pill -->
+            <div class="tracking-pill esper-pill" id="tracking-status-pill">
+              <span class="tracking-dot"></span>
+              <span class="tracking-text" id="tracking-text">ESPER TRACKING: OFF</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: SONY/ATARI Industrial Control Deck -->
+      <aside class="control-deck industrial-chassis" id="control-deck">
+        <div class="chassis-screws top-right-screw-deck"></div>
+
+        <!-- Mode Selector Tabs (Membrane vs Joystick) -->
+        <div class="deck-header industrial-subpanel">
+          <div class="subpanel-title-block">
+            <span class="deck-mfg-code">QC-AF // GIMBAL DECK</span>
+            <span class="deck-title">MOTION CONTROLS</span>
+          </div>
+          <div class="control-mode-tabs membrane-tabs">
+            <button id="tab-dpad" class="mode-tab active" data-mode="dpad">MEMBRANE</button>
+            <button id="tab-joystick" class="mode-tab" data-mode="joystick">JOYSTICK</button>
+          </div>
+        </div>
+
+        <!-- 8-Way Tactile Membrane Keypad View -->
+        <div class="ptz-interactive-area membrane-housing" id="dpad-view">
+          <div class="membrane-cluster" id="dpad-ring">
+            <button class="membrane-key dpad-btn dpad-up" id="btn-tilt-up" data-pan="0" data-tilt="1" title="Tilt Up (W / ↑)">
+              <span class="key-led"></span>
+              <svg viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
+            </button>
+            <button class="membrane-key dpad-btn dpad-up-right" id="btn-up-right" data-pan="1" data-tilt="1" title="Up Right">
+              <span class="key-led"></span>
+              <svg viewBox="0 0 24 24"><path d="m7 17 10-10M17 17V7H7"/></svg>
+            </button>
+            <button class="membrane-key dpad-btn dpad-right" id="btn-pan-right" data-pan="1" data-tilt="0" title="Pan Right (D / →)">
+              <span class="key-led"></span>
+              <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <button class="membrane-key dpad-btn dpad-down-right" id="btn-down-right" data-pan="1" data-tilt="-1" title="Down Right">
+              <span class="key-led"></span>
+              <svg viewBox="0 0 24 24"><path d="m7 7 10 10M17 7v10H7"/></svg>
+            </button>
+            <button class="membrane-key dpad-btn dpad-down" id="btn-tilt-down" data-pan="0" data-tilt="-1" title="Tilt Down (S / ↓)">
+              <span class="key-led"></span>
+              <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <button class="membrane-key dpad-btn dpad-down-left" id="btn-down-left" data-pan="-1" data-tilt="-1" title="Down Left">
+              <span class="key-led"></span>
+              <svg viewBox="0 0 24 24"><path d="m17 7-10 10M7 7v10h10"/></svg>
+            </button>
+            <button class="membrane-key dpad-btn dpad-left" id="btn-pan-left" data-pan="-1" data-tilt="0" title="Pan Left (A / ←)">
+              <span class="key-led"></span>
+              <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button class="membrane-key dpad-btn dpad-up-left" id="btn-up-left" data-pan="-1" data-tilt="1" title="Up Left">
+              <span class="key-led"></span>
+              <svg viewBox="0 0 24 24"><path d="m17 17-10-10M7 17V7h10"/></svg>
+            </button>
+            <button class="membrane-key dpad-center atari-center" id="btn-center" title="Center Home (H / Space)">
+              <div class="center-target-ring"></div>
+              <span class="center-label">HOME</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Heavy Rubber-Boot Analogue Gimbal Joystick View -->
+        <div class="ptz-interactive-area joystick-housing" id="joystick-view" style="display: none;">
+          <div class="gimbal-bezel">
+            <div class="joystick-boundary rubber-boot" id="joystick-boundary">
+              <div class="boot-ring boot-ring-3"></div>
+              <div class="boot-ring boot-ring-2"></div>
+              <div class="boot-ring boot-ring-1"></div>
+              <div class="joystick-crosshair-h"></div>
+              <div class="joystick-crosshair-v"></div>
+              <div class="joystick-thumb arcade-bat" id="joystick-thumb">
+                <div class="chrome-shaft"></div>
+                <div class="ball-top red-arcade">
+                  <div class="ball-specular"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="joystick-hint">PROPORTIONAL ANALOG GIMBAL // DRAG TO PAN-TILT</span>
+        </div>
+
+        <!-- Step Speed Fader Slider -->
+        <div class="deck-control-row industrial-pot">
+          <div class="speed-control-box">
+            <div class="speed-header">
+              <label for="step-slider" class="sub-label">MOTOR SLEW RATE</label>
+              <span class="speed-readout" id="speed-display">3x NORMAL (5°)</span>
+            </div>
+            <div class="fader-track-container">
+              <input type="range" id="step-slider" min="1" max="8" value="3" step="1" class="hud-slider industrial-fader">
+            </div>
+            <div class="speed-ticks">
+              <span>1: FINE</span>
+              <span>3: NORM</span>
+              <span>5: BRISK</span>
+              <span>8: MAX</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ESPER Blade Runner Vision / Face Tracking Module -->
+        <div class="deck-section-box vision-module">
+          <div class="section-title-row">
+            <div class="title-with-badge">
+              <span class="sub-label">ESPER PHOTO-RESOLVER</span>
+              <span class="module-spec">PICO AI</span>
+            </div>
+            <span class="beta-badge">AUTOLOCK</span>
+          </div>
+
+          <div class="toggle-card membrane-card">
+            <div class="toggle-info">
+              <span class="toggle-name">ESPER Face Auto-Tracking</span>
+              <span class="toggle-desc">Closed-loop optical coordinate resolver</span>
+            </div>
+            <label class="switch-toggle chrome-toggle">
+              <input type="checkbox" id="toggle-facetrack">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="facetrack-params" id="facetrack-params" style="display: none;">
+            <div class="param-row">
+              <label for="track-deadzone" class="param-label">Target Deadzone Gate:</label>
+              <span class="param-val" id="val-deadzone">15%</span>
+            </div>
+            <input type="range" id="track-deadzone" min="5" max="35" value="15" class="hud-slider compact">
+
+            <div class="param-row">
+              <label for="track-interval" class="param-label">Slew Response Cadence:</label>
+              <span class="param-val" id="val-cadence">200ms</span>
+            </div>
+            <input type="range" id="track-interval" min="120" max="500" value="200" step="20" class="hud-slider compact">
+          </div>
+        </div>
+
+        <!-- Position Memory Presets (Broadcast Keypad Style) -->
+        <div class="deck-section-box presets-module">
+          <div class="section-title-row">
+            <span class="sub-label">LOCATION REGISTERS</span>
+            <span class="module-spec">6-CH PRESET</span>
+          </div>
+          <div class="preset-grid membrane-preset-grid">
+            <button class="preset-btn membrane-preset slate" data-pan="-15" data-tilt="0" title="Pan Left 15°">
+              <span class="preset-indicator"></span>
+              <span class="preset-tag">L-15</span>
+              <span class="preset-sub">-15° AZM</span>
+            </button>
+            <button class="preset-btn membrane-preset amber" data-pan="0" data-tilt="0" title="Center Home (0,0)">
+              <span class="preset-indicator"></span>
+              <span class="preset-tag">HOME</span>
+              <span class="preset-sub">0° ZERO</span>
+            </button>
+            <button class="preset-btn membrane-preset slate" data-pan="15" data-tilt="0" title="Pan Right 15°">
+              <span class="preset-indicator"></span>
+              <span class="preset-tag">R+15</span>
+              <span class="preset-sub">+15° AZM</span>
+            </button>
+            <button class="preset-btn membrane-preset teal" data-pan="0" data-tilt="8" title="Tilt Up 8°">
+              <span class="preset-indicator"></span>
+              <span class="preset-tag">UP+8</span>
+              <span class="preset-sub">+8° ELEV</span>
+            </button>
+            <button class="preset-btn membrane-preset teal" data-pan="0" data-tilt="-8" title="Tilt Down 8°">
+              <span class="preset-indicator"></span>
+              <span class="preset-tag">DN-8</span>
+              <span class="preset-sub">-8° ELEV</span>
+            </button>
+            <button class="preset-btn membrane-preset custom-preset gold" id="btn-custom-1" title="Click: Recall | Hold 1s: Save Current Angle">
+              <span class="preset-indicator"></span>
+              <span class="preset-tag">REG-1</span>
+              <span class="preset-sub">MEMORY</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Hotkey Diagnostics -->
+        <div class="hotkey-legend industrial-legend">
+          <span class="key-pill">W/A/S/D</span> PTZ
+          <span class="key-pill">H</span> ZERO
+          <span class="key-pill">1-8</span> SPD
+          <span class="key-pill">M</span> MIC
+          <span class="key-pill">F</span> FULL
+        </div>
+      </aside>
+    </main>
+
+    <!-- Slide-Out Camera Settings Rack -->
+    <div class="settings-backdrop" id="settings-backdrop"></div>
+    <aside class="settings-drawer industrial-drawer" id="settings-drawer">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <span class="drawer-code">UVC-DSP // ANALOG & DIGITAL PROCESSING</span>
+          <h2 class="drawer-title">CAMERA HARDWARE CONTROLS</h2>
+        </div>
+        <button id="btn-close-drawer" class="hud-btn icon-btn" title="Close Settings">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="drawer-content" id="drawer-settings-list">
+        <div class="setting-item" data-setting="brightness">
+          <div class="setting-meta">
+            <label for="slider-brightness" class="setting-name">Luminance / Brightness</label>
+            <span class="setting-value" id="val-brightness">128</span>
+          </div>
+          <input type="range" id="slider-brightness" min="0" max="255" value="128" class="hud-slider">
+        </div>
+
+        <div class="setting-item" data-setting="contrast">
+          <div class="setting-meta">
+            <label for="slider-contrast" class="setting-name">Dynamic Contrast</label>
+            <span class="setting-value" id="val-contrast">32</span>
+          </div>
+          <input type="range" id="slider-contrast" min="0" max="255" value="32" class="hud-slider">
+        </div>
+
+        <div class="setting-item" data-setting="saturation">
+          <div class="setting-meta">
+            <label for="slider-saturation" class="setting-name">Chroma Saturation</label>
+            <span class="setting-value" id="val-saturation">32</span>
+          </div>
+          <input type="range" id="slider-saturation" min="0" max="255" value="32" class="hud-slider">
+        </div>
+
+        <div class="setting-item" data-setting="sharpness">
+          <div class="setting-meta">
+            <label for="slider-sharpness" class="setting-name">Aperture / Sharpness</label>
+            <span class="setting-value" id="val-sharpness">2</span>
+          </div>
+          <input type="range" id="slider-sharpness" min="0" max="255" value="2" class="hud-slider">
+        </div>
+
+        <div class="setting-item" data-setting="white_balance">
+          <div class="setting-meta">
+            <label for="slider-white_balance" class="setting-name">Kelvin Color Temp</label>
+            <span class="setting-value" id="val-white_balance">4000</span>
+          </div>
+          <input type="range" id="slider-white_balance" min="2800" max="6500" value="4000" class="hud-slider">
+        </div>
+      </div>
+
+      <div class="drawer-footer">
+        <button id="btn-reset-settings" class="membrane-btn danger-membrane">
+          RESTORE FACTORY CALIBRATION
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <script src="pico.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
